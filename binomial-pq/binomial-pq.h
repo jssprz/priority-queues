@@ -23,8 +23,8 @@ namespace priority_queue {
 		}
 
 		virtual void create(const vector<T> &data) {
-			n = data.size();
-			for (size_t i = 0; i < n; i++) {
+			this->n = data.size();
+			for (size_t i = 0; i < this->n; i++) {
 				// create new tree withe the value
 				auto carry = new Node(data[i]);
 
@@ -68,7 +68,7 @@ namespace priority_queue {
 			if (carry)
 				forest[forest_size++] = carry;
 
-			n++;
+			this->n++;
 		}
 
 		virtual T extract_next() {
@@ -102,14 +102,14 @@ namespace priority_queue {
 
 			delete[] children;
 			delete max;
-			n--;
+			this->n--;
 			return result;
 		}
 
 		virtual vector<T> extract_all() {
 			vector<T> result;
-			result.reserve(n);
-			while (n)
+			result.reserve(this->n);
+			while (this->n)
 				result.push_back(extract_next());
 			return result;
 		}

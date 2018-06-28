@@ -3,6 +3,11 @@
 #include "config.h"
 
 #ifdef USE_EXPERIMENTS
+#ifdef _MSC_VER
+#include <direct.h>
+#else
+#include <sys/stat.h>
+#endif
 #ifdef USE_BINARY_HEAP_PQ
 #include "experiments/binary-heap-tests.h"
 #endif
@@ -28,6 +33,16 @@ using namespace experiments;
 int main() {
 #ifdef USE_EXPERIMENTS
     try {
+        string strPath = "tests_results";
+#ifdef _WIN32
+        const int dir_err = _mkdir(strPath.c_str());
+#else
+        const int dir_err = mkdir(strPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH); // notice that 777 is different than 0777
+
+#endif
+        if (dir_err == -1 && dir_err != EEXIST)
+            throw string("error creating 'tests_results' folder");
+
 #ifdef USE_BINARY_HEAP_PQ
         //binary-heap tests group
         auto bh_tests = BinaryHeapPQueueTest();
