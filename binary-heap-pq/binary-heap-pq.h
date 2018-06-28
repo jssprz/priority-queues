@@ -16,37 +16,37 @@ namespace priority_queue {
 
 		virtual void create(const vector<T> &data) {
 			heap = data;
-			n = data.size();
+			this->n = data.size();
 			// Build heap (rearrange array)
-			for (int i = n / 2 - 1; i >= 0; i--)
-				top_down(i, n);
+			for (int i = this->n / 2 - 1; i >= 0; i--)
+				top_down(i, this->n);
 		}
 
 		virtual void insert(const T &value) {
 			heap.push_back(value);
 			botom_up(heap.size() - 1);
-			n++;
+			this->n++;
 		}
 
 		virtual T extract_next() {
 			swap(heap.size() - 1, 0);
 			T value = heap.back();
 			heap.pop_back();
-			top_down(0, --n);
+			top_down(0, --this->n);
 			return value;
 		}
 
 		virtual vector<T> extract_all() {
 			// performs heap-sort over heap vector
-			while (--n) {
+			while (--this->n) {
 				// change current root (max element) with the current last
-				swap(0, n);
+				swap(0, this->n);
 
 				// max heapify on the reduced heap
-				top_down(0, n);
+				top_down(0, this->n);
 			}
 
-			vector<T> result(heap.rbegin(), heap.rend());
+			vector<T> result(this->heap.rbegin(), this->heap.rend());
 
 			// clear the heap
 			heap = vector<T>();

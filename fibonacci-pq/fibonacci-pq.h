@@ -17,9 +17,9 @@ namespace priority_queue {
 		virtual void create(const vector<T> &data) {
 			forest = new Node(data[0]);
 			forest->next = forest->prev = forest;
-			n = data.size();
+			this->n = data.size();
 			auto end_it = data.end();
-			for (vector<T>::const_iterator it = data.begin() + 1; it != end_it; ++it) {
+			for (typename vector<T>::const_iterator it = data.begin() + 1; it != end_it; ++it) {
 				auto new_node = new Node(*it);
 				forest->prev->next = new_node;
 				new_node->prev = forest->prev;
@@ -34,7 +34,7 @@ namespace priority_queue {
 			if (!forest) {
 				forest = new Node(value);
 				forest->next = forest->prev = forest;
-				n = 1;
+				this->n = 1;
 				return;
 			}
 
@@ -45,7 +45,7 @@ namespace priority_queue {
 			new_node->next = forest;
 			if (forest->key < value)
 				forest = new_node;
-			n++;
+			this->n++;
 		}
 
 		virtual T extract_next() {
@@ -56,7 +56,7 @@ namespace priority_queue {
 			if (forest->next == forest) { //if forest has only one node
 				forest = forest->child;
 				if (!forest) {
-					n = 0;
+					this->n = 0;
 					return result;
 				}
 			}
@@ -119,14 +119,14 @@ namespace priority_queue {
 			}
 
 			delete current_max;
-			n--;
+			this->n--;
 			return result;
 		}
 
 		virtual vector<T> extract_all() {
 			vector<T> result;
-			result.reserve(n);
-			while (n)
+			result.reserve(this->n);
+			while (this->n)
 				result.push_back(extract_next());
 			return result;
 		}

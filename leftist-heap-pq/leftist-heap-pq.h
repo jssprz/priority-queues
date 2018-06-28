@@ -14,13 +14,13 @@ namespace priority_queue {
 		LeftistHeapPQueue() :root(NULL) {}
 
 		virtual void create(const vector<T> &data) {
-			n = data.size();
-			root = create_recursive(data, 0, n - 1);
+			this->n = data.size();
+			root = create_recursive(data, 0, this->n - 1);
 		}
 
 		virtual void insert(const T &value) {
 			root = merge_trees(root, new Node(value));
-			n++;
+			this->n++;
 		}
 
 		virtual T extract_next() {
@@ -28,14 +28,14 @@ namespace priority_queue {
 			auto old = root;
 			root = merge_trees(root->left, root->right);
 			delete old;
-			n--;
+			this->n--;
 			return result;
 		}
 
 		virtual vector<T> extract_all() {
 			vector<T> result;
-			result.reserve(n);
-			while (n)
+			result.reserve(this->n);
+			while (this->n)
 				result.push_back(extract_next());
 			return result;
 		}

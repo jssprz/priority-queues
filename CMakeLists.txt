@@ -73,7 +73,7 @@ if (USE_EXPERIMENTS)
 endif (USE_EXPERIMENTS)
 
 add_executable(priority_queues main.cpp priority-queue.h config.h.in)
-target_link_libraries (priority_queues $(EXTRA_LIBS))
+#target_link_libraries (priority_queues $(EXTRA_LIBS))
 
 # add the install targets
 install (TARGETS priority_queues DESTINATION bin)
