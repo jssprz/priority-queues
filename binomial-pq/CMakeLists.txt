@@ -1,0 +1,1 @@
+install (FILES binomial-pq.h binomial-pq-node.h DESTINATION include)

@@ -1,0 +1,1 @@
+install (FILES skew-heap-pq.h skew-heap-node.h DESTINATION include)
