@@ -1,1 +1,1 @@
-install (FILES experiments.h binary-heap-tests.h leftist-heap-tests.h skew-heap-tests.h binary-heap-tests.h fibonacci-queue-tests.h DESTINATION include)
+install (FILES experiments.h binary-heap-tests.h leftist-heap-tests.h skew-heap-tests.h binomial-queue-tests.h fibonacci-queue-tests.h DESTINATION include)

@@ -37,7 +37,7 @@ int main() {
 #ifdef _WIN32
         const int dir_err = _mkdir(strPath.c_str());
 #else
-        const int dir_err = mkdir(strPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH); // notice that 777 is different than 0777
+        const int dir_err = mkdir(strPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 #endif
         cout << dir_err << endl;
