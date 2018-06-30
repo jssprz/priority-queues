@@ -7,7 +7,7 @@ using namespace std;
 
 namespace priority_queue {
 	template<typename T>
-	struct IPriorityQueue {
+	class IPriorityQueue {
 	public:
 		
 		virtual void create(const vector<T> &data) = 0;

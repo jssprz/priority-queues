@@ -2,12 +2,10 @@
 
 namespace priority_queue {
 	template<typename T>
-	class LeftistHeapNode {
+	struct LeftistHeapNode {
 		typedef LeftistHeapNode<T> Node;
-	public:
-		LeftistHeapNode(T key) :key(key), path_length(0) {
-			left = right = NULL;
-		}
+
+		LeftistHeapNode(T key) :key(key), path_length(0) { left = right = NULL;	}
 
 		void swap_children() {
 			auto aux = left;

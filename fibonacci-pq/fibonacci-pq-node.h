@@ -2,10 +2,9 @@
 
 namespace priority_queue {
 	template<typename T>
-	class FibonacciHeapNode {
+	struct FibonacciHeapNode {
 		typedef FibonacciHeapNode<T> Node;
 
-	public:
 		FibonacciHeapNode(T key) :key(key) {}
 
 		T key;
