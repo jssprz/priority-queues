@@ -5,9 +5,7 @@
 // the configured options and settings for project
 #define priority_queues_VERSION_MAJOR @priority_queues_VERSION_MAJOR@
 #define priority_queues_VERSION_MINOR @priority_queues_VERSION_MINOR@
-#define SORT_TRIALS @SORT_TRIALS@
-#define INSERT_MELD_TRIALS @INSERT_MELD_TRIALS@
-#define MELD_TRIALS @MELD_TRIALS@
+#define TRIALS @TRIALS@
 
 #cmakedefine USE_EXPERIMENTS
 #cmakedefine USE_BINARY_HEAP_PQ

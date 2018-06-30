@@ -26,14 +26,14 @@ namespace experiments {
 		vector<int> data(33554432/*2097152*/);
 		std::iota(std::begin(data), std::end(data), 0);
 
-		srand(SORT_TRIALS); //to generate the same trials in all experiments
+		srand(TRIALS); //to generate the same trials in all experiments
 
-		auto create_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			extract_all_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			subtotal_times = vector<vector<double>>(SORT_TRIALS, vector<double>());
+		auto create_times = vector<vector<double>>(TRIALS, vector<double>()),
+			extract_all_times = vector<vector<double>>(TRIALS, vector<double>()),
+			subtotal_times = vector<vector<double>>(TRIALS, vector<double>());
 
-		for (int trial = 0; trial < SORT_TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(SORT_TRIALS)) << endl;
+		for (int trial = 0; trial < TRIALS; trial++) {
+			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
 			random_shuffle(data.begin(), data.end());
 
 			int n = 32768;
@@ -67,24 +67,24 @@ namespace experiments {
 		for (int i = 15; i <= 25; i++) {
 			report_file << "***SPECIAL SORT (n=" << n << ")***" << endl;
 			double avg_create_time = 0, avg_extract_all_time = 0, avg_subtotal_time = 0;
-			for (int j = 0; j < SORT_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				avg_create_time += create_times[j][i-15];
 				avg_extract_all_time += extract_all_times[j][i-15];
 				avg_subtotal_time += create_times[j][i-15] + extract_all_times[j][i-15];
 			}
-			avg_create_time /= SORT_TRIALS;
-			avg_extract_all_time /= SORT_TRIALS;
-			avg_subtotal_time /= SORT_TRIALS;
+			avg_create_time /= TRIALS;
+			avg_extract_all_time /= TRIALS;
+			avg_subtotal_time /= TRIALS;
 
 			double sd_create_time = 0, sd_extract_all_time = 0, sd_subtotal_time = 0;
-			for (int j = 0; j < SORT_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				sd_create_time += (create_times[j][i - 15] - avg_create_time) * (create_times[j][i - 15] - avg_create_time);
 				sd_extract_all_time += (extract_all_times[j][i - 15] - avg_extract_all_time) * (extract_all_times[j][i - 15] - avg_extract_all_time);
 				sd_subtotal_time += (subtotal_times[j][i - 15] - avg_subtotal_time) * (subtotal_times[j][i - 15] - avg_subtotal_time);
 			}
-			sd_create_time = sqrt(sd_create_time / SORT_TRIALS);
-			sd_extract_all_time = sqrt(sd_extract_all_time / SORT_TRIALS);
-			sd_subtotal_time = sqrt(sd_subtotal_time / SORT_TRIALS);
+			sd_create_time = sqrt(sd_create_time / TRIALS);
+			sd_extract_all_time = sqrt(sd_extract_all_time / TRIALS);
+			sd_subtotal_time = sqrt(sd_subtotal_time / TRIALS);
 
 			report_file << "\tcreate heap:\t\t" << avg_create_time * 1000 << "(+-" << sd_create_time * 1000 << ")ms" << endl;
 			report_file << "\textract all:\t\t" << avg_extract_all_time * 1000 << "(+-" << sd_extract_all_time * 1000 << ")ms" << endl;
@@ -102,16 +102,16 @@ namespace experiments {
 		vector<int> data(33554432/*2097152*/);
 		std::iota(std::begin(data), std::end(data), 0);
 
-		srand(SORT_TRIALS); //to generate the same trials in all experiments
+		srand(TRIALS); //to generate the same trials in all experiments
 
-		auto insert_all_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			insert_each_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			extract_all_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			extract_each_times = vector<vector<double>>(SORT_TRIALS, vector<double>()),
-			subtotal_times = vector<vector<double>>(SORT_TRIALS, vector<double>());
+		auto insert_all_times = vector<vector<double>>(TRIALS, vector<double>()),
+			insert_each_times = vector<vector<double>>(TRIALS, vector<double>()),
+			extract_all_times = vector<vector<double>>(TRIALS, vector<double>()),
+			extract_each_times = vector<vector<double>>(TRIALS, vector<double>()),
+			subtotal_times = vector<vector<double>>(TRIALS, vector<double>());
 
-		for (int trial = 0; trial < SORT_TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(SORT_TRIALS)) << endl;
+		for (int trial = 0; trial < TRIALS; trial++) {
+			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
 			random_shuffle(data.begin(), data.end());
 
 			int n = 32768;
@@ -160,32 +160,32 @@ namespace experiments {
 		for (int i = 15; i <= 25; i++) {
 			report_file << "***SORT INSERTING (n=" << n << ")***" << endl;
 			double avg_insert_all_time = 0, avg_insert_each_time = 0, avg_extract_all_time = 0, avg_extract_each_time = 0, avg_subtotal_time = 0;
-			for (int j = 0; j < SORT_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				avg_insert_all_time += insert_all_times[j][i-15];
 				avg_insert_each_time += insert_each_times[j][i-15];
 				avg_extract_all_time += extract_all_times[j][i-15];
 				avg_extract_each_time += extract_each_times[j][i-15];
 				avg_subtotal_time += subtotal_times[j][i-15];
 			}
-			avg_insert_all_time /= SORT_TRIALS;
-			avg_insert_each_time /= SORT_TRIALS;
-			avg_extract_all_time /= SORT_TRIALS;
-			avg_extract_each_time /= SORT_TRIALS;
-			avg_subtotal_time /= SORT_TRIALS;
+			avg_insert_all_time /= TRIALS;
+			avg_insert_each_time /= TRIALS;
+			avg_extract_all_time /= TRIALS;
+			avg_extract_each_time /= TRIALS;
+			avg_subtotal_time /= TRIALS;
 
 			double sd_insert_all_time = 0, sd_insert_each_time = 0, sd_extract_all_time = 0, sd_extract_each_time = 0, sd_subtotal_time = 0;
-			for (int j = 0; j < SORT_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				sd_insert_all_time += (insert_all_times[j][i - 15] - avg_insert_all_time) * (insert_all_times[j][i - 15] - avg_insert_all_time);
 				sd_insert_each_time += (insert_each_times[j][i - 15] - avg_insert_each_time) * (insert_each_times[j][i - 15] - avg_insert_each_time);
 				sd_extract_all_time += (extract_all_times[j][i - 15] - avg_extract_all_time) * (extract_all_times[j][i - 15] - avg_extract_all_time);
 				sd_extract_each_time += (extract_each_times[j][i - 15] - avg_extract_each_time) * (extract_each_times[j][i - 15] - avg_extract_each_time);
 				sd_subtotal_time += (subtotal_times[j][i - 15] - avg_subtotal_time) * (subtotal_times[j][i - 15] - avg_subtotal_time);
 			}
-			sd_insert_all_time = sqrt(sd_insert_all_time / SORT_TRIALS);
-			sd_insert_each_time = sqrt(sd_insert_each_time / SORT_TRIALS);
-			sd_extract_all_time = sqrt(sd_extract_all_time / SORT_TRIALS);
-			sd_extract_each_time = sqrt(sd_extract_each_time / SORT_TRIALS);
-			sd_subtotal_time = sqrt(sd_subtotal_time / SORT_TRIALS);
+			sd_insert_all_time = sqrt(sd_insert_all_time / TRIALS);
+			sd_insert_each_time = sqrt(sd_insert_each_time / TRIALS);
+			sd_extract_all_time = sqrt(sd_extract_all_time / TRIALS);
+			sd_extract_each_time = sqrt(sd_extract_each_time / TRIALS);
+			sd_subtotal_time = sqrt(sd_subtotal_time / TRIALS);
 
 			report_file << "\tinsert all elements:\t\t" << avg_insert_all_time * 1000 << "(+-" << sd_insert_all_time * 1000 << ")ms" << endl;
 			report_file << "\tinsert each element:\t\t" << avg_insert_each_time * 1000 << "(+-" << sd_insert_each_time * 1000 << ")ms" << endl;
@@ -246,7 +246,7 @@ namespace experiments {
 		vector<int> data(1048576);
 		std::iota(std::begin(data), std::end(data), 0);
 
-		srand(INSERT_MELD_TRIALS); //to generate the same trials in all experiments
+		srand(TRIALS); //to generate the same trials in all experiments
 
 		random_shuffle(data.begin(), data.end());
 
@@ -254,13 +254,13 @@ namespace experiments {
 		make_heap(std_heap.begin(), std_heap.end());
 		sort_heap(std_heap.begin(), std_heap.end());
 
-		auto create_times = vector<vector<double>>(INSERT_MELD_TRIALS, vector<double>()),
-			create_each_times = vector<vector<double>>(INSERT_MELD_TRIALS, vector<double>()),
-			meld_times = vector<vector<double>>(INSERT_MELD_TRIALS, vector<double>()),
-			meld_each_times = vector<vector<double>>(INSERT_MELD_TRIALS, vector<double>());
+		auto create_times = vector<vector<double>>(TRIALS, vector<double>()),
+			create_each_times = vector<vector<double>>(TRIALS, vector<double>()),
+			meld_times = vector<vector<double>>(TRIALS, vector<double>()),
+			meld_each_times = vector<vector<double>>(TRIALS, vector<double>());
 
-		for (int trial = 0; trial < INSERT_MELD_TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(INSERT_MELD_TRIALS)) << endl;
+		for (int trial = 0; trial < TRIALS; trial++) {
+			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
 
 			int k = 1;
 			for (int i = 0; i <= 15; i++) {
@@ -318,28 +318,28 @@ namespace experiments {
 		for (int i = 0; i <= 15; i++) {
 			report_file << "***INSERT AND MELD (k=" << k << ")***" << endl;
 			double avg_create_time = 0, avg_create_each_time = 0, avg_meld_time = 0, avg_meld_each_time = 0;
-			for (int j = 0; j < INSERT_MELD_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				avg_create_time += create_times[j][i];
 				avg_create_each_time += create_each_times[j][i];
 				avg_meld_time += meld_times[j][i];
 				avg_meld_each_time += meld_each_times[j][i];
 			}
-			avg_create_time /= INSERT_MELD_TRIALS;
-			avg_create_each_time /= INSERT_MELD_TRIALS;
-			avg_meld_time /= INSERT_MELD_TRIALS;
-			avg_meld_each_time /= INSERT_MELD_TRIALS;
+			avg_create_time /= TRIALS;
+			avg_create_each_time /= TRIALS;
+			avg_meld_time /= TRIALS;
+			avg_meld_each_time /= TRIALS;
 
 			double sd_create_time = 0, sd_create_each_time = 0, sd_meld_time = 0, sd_meld_each_time = 0;
-			for (int j = 0; j < INSERT_MELD_TRIALS; j++) {
+			for (int j = 0; j < TRIALS; j++) {
 				sd_create_time += (create_times[j][i] - avg_create_time) * (create_times[j][i] - avg_create_time);
 				sd_meld_time += (meld_times[j][i] - avg_meld_time) * (meld_times[j][i] - avg_meld_time);
 				sd_create_each_time += (create_each_times[j][i] - avg_create_each_time) * (create_each_times[j][i] - avg_create_each_time);
 				sd_meld_each_time += (meld_each_times[j][i] - avg_meld_each_time) * (meld_each_times[j][i] - avg_meld_each_time);
 			}
-			sd_create_time = sqrt(sd_create_time / INSERT_MELD_TRIALS);
-			sd_meld_time = sqrt(sd_meld_time / INSERT_MELD_TRIALS);
-			sd_create_each_time = sqrt(sd_create_each_time / INSERT_MELD_TRIALS);
-			sd_meld_each_time = sqrt(sd_meld_each_time / INSERT_MELD_TRIALS);
+			sd_create_time = sqrt(sd_create_time / TRIALS);
+			sd_meld_time = sqrt(sd_meld_time / TRIALS);
+			sd_create_each_time = sqrt(sd_create_each_time / TRIALS);
+			sd_meld_each_time = sqrt(sd_meld_each_time / TRIALS);
 
 			report_file << "\tcreate all heaps:\t\t" << avg_create_time * 1000 << "(+-" << sd_create_time * 1000 << ")ms" << endl;
 			report_file << "\tcreate each heap:\t\t" << avg_create_each_time * 1000 << "(+-" << sd_create_each_time * 1000 << ")ms" << endl;
@@ -354,11 +354,11 @@ namespace experiments {
 	void meld_test(ofstream &report_file) {
 	DECLARE_TIMING(meld_timer);
 
-	srand(MELD_TRIALS); //to generate the same trials in all experiments
+	srand(TRIALS); //to generate the same trials in all experiments
 
-	auto meld_times = vector<vector<double>>(MELD_TRIALS, vector<double>());
-	for (size_t trial = 0; trial < MELD_TRIALS; trial++) {
-		cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(MELD_TRIALS)) << endl;
+	auto meld_times = vector<vector<double>>(TRIALS, vector<double>());
+	for (size_t trial = 0; trial < TRIALS; trial++) {
+		cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
 		
 		int n = 32768;
 		for (size_t i = 15; i <= 25; i++) {
@@ -399,15 +399,15 @@ namespace experiments {
 	for (size_t i = 0; i <= 10; i++) {
 		report_file << "***MELD (n=" << n << ")***" << endl;
 		double avg_meld_time = 0;
-		for (int j = 0; j < MELD_TRIALS; j++)
+		for (int j = 0; j < TRIALS; j++)
 			avg_meld_time += meld_times[j][i];
-		avg_meld_time /= MELD_TRIALS;
+		avg_meld_time /= TRIALS;
 
 		double sd_meld_time = 0;
-		for (int j = 0; j < MELD_TRIALS; j++)
+		for (int j = 0; j < TRIALS; j++)
 			sd_meld_time += (meld_times[j][i] - avg_meld_time) * (meld_times[j][i] - avg_meld_time);
 		
-		sd_meld_time = sqrt(sd_meld_time / MELD_TRIALS);
+		sd_meld_time = sqrt(sd_meld_time / TRIALS);
 
 		report_file << "\tmelding process:\t\t" << avg_meld_time * 1000 << "(+-" << sd_meld_time * 1000 << ")ms" << endl;
 		

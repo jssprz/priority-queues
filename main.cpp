@@ -40,7 +40,6 @@ int main() {
         const int dir_err = mkdir(strPath.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 #endif
-        cout << dir_err << endl;
         if (dir_err != 0 && dir_err != -1 && dir_err != EEXIST)
             throw string("error creating 'tests_results' folder");
 
