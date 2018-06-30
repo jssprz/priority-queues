@@ -56,8 +56,8 @@ namespace experiments {
 
 				//check data is correct
 				Assert::IsTrue(sorted.size() == n, "Data is not complete");
-	//			for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
-	//				Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
+				for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
+					Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
 
 				n = n << 1;
 			}
@@ -142,8 +142,8 @@ namespace experiments {
 				//check data is sorted
 				Assert::IsTrue(queue->count() == 0, "The queue is not empty");
 				Assert::IsTrue(sorted.size() == n, "The extracted data is not complete");
-	//			for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
-	//				Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
+				for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
+					Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
 
 				delete queue;
 
@@ -243,7 +243,7 @@ namespace experiments {
 		DECLARE_TIMING(creation_timer);
 		DECLARE_TIMING(meld_timer);
 
-		vector<int> data(1048576);
+		vector<int> data(1048576); /*2^20*/
 		std::iota(std::begin(data), std::end(data), 0);
 
 		srand(TRIALS); //to generate the same trials in all experiments
@@ -303,8 +303,8 @@ namespace experiments {
 				queues.pop_front();
 
 				//check data is correct
-	//			for (vector<int>::reverse_iterator it = std_heap.rbegin(); it != std_heap.rend(); ++it)
-	//				Assert::IsTrue(*it == pq->extract_next(), "The heap constructed for k=" + to_string(k) + " is not sorted");
+				for (vector<int>::reverse_iterator it = std_heap.rbegin(); it != std_heap.rend(); ++it)
+					Assert::IsTrue(*it == pq->extract_next(), "The heap constructed for k=" + to_string(k) + " is not sorted");
 				delete pq;
 
 				CLEAR_TIMING(creation_timer);
@@ -384,8 +384,8 @@ namespace experiments {
 			//check data is correct
 			auto sorted = meld->extract_all();
 			Assert::IsTrue(sorted.size() == n, "Data is not complete");
-//			for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
-//				Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
+			for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
+				Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
 
 			delete meld;
 			delete q1;

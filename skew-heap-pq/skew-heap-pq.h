@@ -59,6 +59,7 @@ namespace priority_queue {
 		}
 
 	private:
+	    /// Create a Skew Heap in O(n) with Divide and Conquer strategy
 		Node* create_recursive(const vector<T> &data, int min, int max) {
 			if (min > max)return NULL;
 			else if (min == max)

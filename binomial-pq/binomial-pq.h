@@ -48,7 +48,7 @@ namespace priority_queue {
 		}
 
 		virtual void insert(const T &value) {
-			// create new tree withe the value
+			// create new tree with the value
 			auto carry = new Node(value);
 
 			// increment the forest

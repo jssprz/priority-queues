@@ -19,12 +19,18 @@ namespace priority_queue {
 			forest->next = forest->prev = forest;
 			this->n = data.size();
 			auto end_it = data.end();
+			// insert each element
 			for (typename vector<T>::const_iterator it = data.begin() + 1; it != end_it; ++it) {
+				// create new tre with one only node with the value
 				auto new_node = new Node(*it);
+
+				// insert the new node in the list
 				forest->prev->next = new_node;
 				new_node->prev = forest->prev;
 				forest->prev = new_node;
 				new_node->next = forest;
+
+				// update the node with the maximum value
 				if (forest->key < *it)
 					forest = new_node;
 			}
@@ -38,13 +44,19 @@ namespace priority_queue {
 				return;
 			}
 
-			auto new_node = new Node(value);
-			forest->prev->next = new_node;
+            // create new tre with one only node with the value
+            auto new_node = new Node(value);
+
+			// insert the new node in the list
+            forest->prev->next = new_node;
 			new_node->prev = forest->prev;
 			forest->prev = new_node;
 			new_node->next = forest;
-			if (forest->key < value)
+
+            // update the node with the maximum value
+            if (forest->key < value)
 				forest = new_node;
+
 			this->n++;
 		}
 

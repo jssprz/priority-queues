@@ -19,7 +19,21 @@ namespace priority_queue {
 		}
 
 		virtual void insert(const T &value) {
-			root = merge_trees(root, new Node(value));
+            if(!root)
+                root = new Node(value);
+            else if (root->key < value) {
+                auto new_node = new Node(value);
+                new_node->left = root;
+                root = new_node;
+            }
+            else if (!root->left)
+                root->left = new Node(value);
+            else {
+                root->right = merge_trees(root->right, new Node(value));
+                if (root->left->path_length < root->right->path_length)
+                    root->swap_children();
+                root->path_length = root->right->path_length + 1;
+            }
 			this->n++;
 		}
 
@@ -48,6 +62,7 @@ namespace priority_queue {
 		}
 
 	private:
+        /// Create a Skew Heap in O(n) with Divide and Conquer strategy
 		Node* create_recursive(const vector<T> &data, int min, int max) {
 			if (min > max)return NULL;
 			else if (min == max)
@@ -63,26 +78,26 @@ namespace priority_queue {
 			if (!n2)return n1;
 			if (n1->key < n2->key){
 				if (!n2->left)
-					n2->left = n1;
+					n2->left = n1; //put the less as the left child of the greater
 				else {
-					n2->right = merge_trees(n2->right, n1);
-					if (n2->left->path_length < n2->right->path_length)
-						n2->swap_children();
-					n2->path_length = n2->right->path_length + 1;
+					n2->right = merge_trees(n2->right, n1); //merge right and the less node
+					if (n2->left->path_length < n2->right->path_length) //the shortest path to a leaf throw the right is longest
+						n2->swap_children(); //swap children to fix the leftist heap property
+					n2->path_length = n2->right->path_length + 1; //update shortest path to leaf from the greater
 				}
-				return n2;
+				return n2; //the root of the merge is the greater
 			}
 			else if (!n1->left)
-				n1->left = n2;
+				n1->left = n2; //put the less as the left child of the greater
 			else {
-				n1->right = merge_trees(n1->right, n2);
-				if (n1->left->path_length < n1->right->path_length)
-					n1->swap_children();
-				n1->path_length = n1->right->path_length + 1;
+				n1->right = merge_trees(n1->right, n2); //merge right and the less node
+				if (n1->left->path_length < n1->right->path_length) //the shortest path to a leaf throw the right is longest
+					n1->swap_children(); //swap children to fix the leftist heap property
+				n1->path_length = n1->right->path_length + 1; //update shortest path to leaf from the greater
 			}
-			return n1;
+			return n1; //the root of the merge is the greater
 		}
 
-		Node *root;
+		Node *root; //the root of the leftist heap
 	};
 }
