@@ -20,7 +20,17 @@ namespace priority_queue {
 		}
 
 		virtual void insert(const T &value) {
-			root = merge_trees(root, new Node(value));
+		    if (!root)
+		        root = new Node(value);
+		    else if (value < root->key) {
+                root->swap_children();
+                root->left = merge_trees(new Node(value), root->left);
+            }
+            else {
+		        auto new_node = new Node(value);
+                new_node->left = root;
+                root = new_node;
+            }
 			this->n++;
 		}
 
@@ -62,17 +72,16 @@ namespace priority_queue {
 		static Node* merge_trees(Node *n1, Node *n2) {
 			if (!n1)return n2;
 			if (!n2)return n1;
-			if (n1->key < n2->key)
-				swap(n1, n2);
-			n1->swap_children();
-			n1->left = merge_trees(n2, n1->left);
-			return n1;
-		}
-
-		static void swap(Node *&n1, Node *&n2) {
-			auto aux = n1;
-			n1 = n2;
-			n2 = aux;
+			if (n1->key < n2->key) {
+				n2->swap_children();
+				n2->left = merge_trees(n1, n2->left);
+				return n2;
+			}
+			else {
+				n1->swap_children();
+				n1->left = merge_trees(n2, n1->left);
+				return n1;
+			}
 		}
 
 		Node *root;

@@ -61,10 +61,18 @@ namespace priority_queue {
 		static Node* merge_trees(Node *n1, Node *n2) {
 			if (!n1)return n2;
 			if (!n2)return n1;
-			if (n1->key < n2->key)
-				swap(n1, n2);
-
-			if (!n1->left)
+			if (n1->key < n2->key){
+				if (!n2->left)
+					n2->left = n1;
+				else {
+					n2->right = merge_trees(n2->right, n1);
+					if (n2->left->path_length < n2->right->path_length)
+						n2->swap_children();
+					n2->path_length = n2->right->path_length + 1;
+				}
+				return n2;
+			}
+			else if (!n1->left)
 				n1->left = n2;
 			else {
 				n1->right = merge_trees(n1->right, n2);
@@ -73,12 +81,6 @@ namespace priority_queue {
 				n1->path_length = n1->right->path_length + 1;
 			}
 			return n1;
-		}
-
-		static void swap(Node *&n1, Node *&n2) {
-			auto aux = n1;
-			n1 = n2;
-			n2 = aux;
 		}
 
 		Node *root;
