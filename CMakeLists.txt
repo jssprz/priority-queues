@@ -7,7 +7,7 @@ set (priority_queues_VERSION_MINOR 0)
 
 # variables used for in experiments,
 # they define the number of trials to run in each experiment
-set(TRIALS "1" CACHE STRING "")
+set(TRIALS "8" CACHE STRING "")
 
 set(CMAKE_CXX_STANDARD 14)
 
