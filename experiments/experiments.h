@@ -33,12 +33,12 @@ namespace experiments {
 			subtotal_times = vector<vector<double>>(TRIALS, vector<double>());
 
 		for (int trial = 0; trial < TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
+			cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 			random_shuffle(data.begin(), data.end());
 
 			int n = 32768;
 			for (int i = 15; i <= 25; i++) {
-				cout << ("\tN: " + to_string(n)) << endl;
+				cout << "\r\t\tN: " << n;
 
 				auto data_subset = vector<int>(data.begin(), data.begin() + n);
 				START_TIMING(creation_timer);
@@ -63,6 +63,7 @@ namespace experiments {
 			}
 		}
 
+		string latex_creation_plot = "", latex_extract_all_plot = "", latex_total_plot = "";
 		int n = 32768;
 		for (int i = 15; i <= 25; i++) {
 			report_file << "***SPECIAL SORT (n=" << n << ")***" << endl;
@@ -90,9 +91,17 @@ namespace experiments {
 			report_file << "\textract all:\t\t" << avg_extract_all_time * 1000 << "(+-" << sd_extract_all_time * 1000 << ")ms" << endl;
 			report_file << "\ttotal (n=" << n << "):\t\t" << (avg_subtotal_time) * 1000 << "(+-" << sd_subtotal_time * 1000 << ")ms" << endl << endl;
 
+			latex_creation_plot += "(" + to_string(i) + ", " + to_string(avg_create_time * 1000) + ")";
+            latex_extract_all_plot += "(" + to_string(i) + ", " + to_string(avg_extract_all_time * 1000) + ")";
+            latex_total_plot += "(" + to_string(i) + ", " + to_string(avg_subtotal_time * 1000) + ")";
+
 			n = n << 1;
 		}
-	}
+
+        report_file << "\n\nlatex points to plot creation times: \n" << latex_creation_plot;
+        report_file << "\n\nlatex points to plot extract_all times: \n" << latex_extract_all_plot;
+        report_file << "\n\nlatex points to plot totals times: \n" << latex_total_plot;
+    }
 
 	template<typename PQ>
 	void sort_inserting_test(ofstream &report_file) {
@@ -111,12 +120,12 @@ namespace experiments {
 			subtotal_times = vector<vector<double>>(TRIALS, vector<double>());
 
 		for (int trial = 0; trial < TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
+			cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 			random_shuffle(data.begin(), data.end());
 
 			int n = 32768;
 			for (int i = 15; i <= 25; i++) {
-				cout << ("\tN: " + to_string(n)) << endl;
+				cout << "\r\t\tN: " << n;
 
 				auto queue = new PQ();
 				for (int j = 0; j < n; j++) {
@@ -156,7 +165,8 @@ namespace experiments {
 			}
 		}
 
-		int n = 32768;
+        string latex_insert_all_plot = "", latex_insert_each_plot = "", latex_extract_all_plot = "", latex_extract_each_plot = "", latex_total_plot = "";
+        int n = 32768;
 		for (int i = 15; i <= 25; i++) {
 			report_file << "***SORT INSERTING (n=" << n << ")***" << endl;
 			double avg_insert_all_time = 0, avg_insert_each_time = 0, avg_extract_all_time = 0, avg_extract_each_time = 0, avg_subtotal_time = 0;
@@ -193,8 +203,20 @@ namespace experiments {
 			report_file << "\textract each element:\t\t" << avg_extract_each_time * 1000 << "(+-" << sd_extract_each_time * 1000 << ")ms" << endl;
 			report_file << "\ttotal (n=" << n << "):\t\t" << avg_subtotal_time * 1000 << "(+-" << sd_subtotal_time * 1000 << ")ms" << endl << endl;
 
+            latex_insert_all_plot += "(" + to_string(i) + ", " + to_string(avg_insert_all_time * 1000) + ")";
+            latex_insert_each_plot += "(" + to_string(i) + ", " + to_string(avg_insert_each_time * 1000) + ")";
+            latex_extract_all_plot += "(" + to_string(i) + ", " + to_string(avg_extract_all_time * 1000) + ")";
+            latex_extract_each_plot += "(" + to_string(i) + ", " + to_string(avg_extract_each_time * 1000) + ")";
+            latex_total_plot += "(" + to_string(i) + ", " + to_string(avg_subtotal_time * 1000) + ")";
+
 			n = n << 1;
 		}
+
+        report_file << "\n\nlatex points to plot insert all times: \n" << latex_insert_all_plot;
+        report_file << "\n\nlatex points to plot insert each times: \n" << latex_insert_each_plot;
+        report_file << "\n\nlatex points to plot extract all times: \n" << latex_extract_all_plot;
+        report_file << "\n\nlatex points to plot extract each times: \n" << latex_extract_each_plot;
+        report_file << "\n\nlatex points to plot total times: \n" << latex_total_plot;
 	}
 
 	template<typename PQ>
@@ -260,11 +282,11 @@ namespace experiments {
 			meld_each_times = vector<vector<double>>(TRIALS, vector<double>());
 
 		for (int trial = 0; trial < TRIALS; trial++) {
-			cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
+			cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 
 			int k = 1;
 			for (int i = 0; i <= 15; i++) {
-				cout << ("\tK: " + to_string(k)) << endl;
+				cout << "\r\t\tK: " << k;
 				deque<PQ*> queues;
 
 				//insertion
@@ -314,7 +336,8 @@ namespace experiments {
 			}
 		}
 
-		int k = 1;
+        string latex_creation_plot = "", latex_create_each_plot = "", latex_meld_plot = "", latex_meld_each_plot = "", latex_total_plot = "";
+        int k = 1;
 		for (int i = 0; i <= 15; i++) {
 			report_file << "***INSERT AND MELD (k=" << k << ")***" << endl;
 			double avg_create_time = 0, avg_create_each_time = 0, avg_meld_time = 0, avg_meld_each_time = 0;
@@ -346,72 +369,90 @@ namespace experiments {
 			report_file << "\tmelding process:\t\t" << avg_meld_time * 1000 << "(+-" << sd_meld_time * 1000 << ")ms" << endl;
 			report_file << "\teach meld:\t\t" << avg_meld_each_time * 1000 << "(+-" << sd_meld_each_time * 1000 << ")ms" << endl;
 			report_file << "\ttotal (k=" << k << "):\t\t" << (avg_create_time + avg_meld_time) * 1000 << "(+-" << (sd_create_time + sd_meld_time) * 1000 << ")ms" << endl << endl;
+
+            latex_creation_plot += "(" + to_string(i) + ", " + to_string(avg_create_time * 1000) + ")";
+            latex_create_each_plot += "(" + to_string(i) + ", " + to_string(avg_create_each_time * 1000) + ")";
+            latex_meld_plot += "(" + to_string(i) + ", " + to_string(avg_meld_time * 1000) + ")";
+            latex_meld_each_plot += "(" + to_string(i) + ", " + to_string(avg_meld_each_time * 1000) + ")";
+            latex_total_plot += "(" + to_string(i) + ", " + to_string((avg_create_time + avg_meld_time) * 1000) + ")";
+
 			k = k << 1;
 		}
+
+        report_file << "\n\nlatex points to plot create all times: \n" << latex_creation_plot;
+        report_file << "\n\nlatex points to plot create each times: \n" << latex_create_each_plot;
+        report_file << "\n\nlatex points to plot meld all times: \n" << latex_meld_plot;
+        report_file << "\n\nlatex points to plot meld each times: \n" << latex_meld_each_plot;
+        report_file << "\n\nlatex points to plot total times: \n" << latex_total_plot;
 	}
 
 	template<typename PQ>
 	void meld_test(ofstream &report_file) {
-	DECLARE_TIMING(meld_timer);
+        DECLARE_TIMING(meld_timer);
 
-	srand(TRIALS); //to generate the same trials in all experiments
+        srand(TRIALS); //to generate the same trials in all experiments
 
-	auto meld_times = vector<vector<double>>(TRIALS, vector<double>());
-	for (size_t trial = 0; trial < TRIALS; trial++) {
-		cout << ("Executing trial: " + to_string(trial+1) + " of " + to_string(TRIALS)) << endl;
-		
-		int n = 32768;
-		for (size_t i = 15; i <= 25; i++) {
-			cout << ("\tN: " + to_string(n)) << endl;
-			vector<int> data(n);
-			std::iota(std::begin(data), std::end(data), 0);
-			random_shuffle(data.begin(), data.end());
+        auto meld_times = vector<vector<double>>(TRIALS, vector<double>());
+        for (size_t trial = 0; trial < TRIALS; trial++) {
+            cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 
-			vector<int> data2;
-			data2.insert(data2.end(), data.begin() + n / 2, data.end());
-			data.resize(n / 2);
+            int n = 32768;
+            for (size_t i = 15; i <= 25; i++) {
+                cout << "\r\t\tN: " << n;
+                vector<int> data(n);
+                std::iota(std::begin(data), std::end(data), 0);
+                random_shuffle(data.begin(), data.end());
 
-			auto q1 = new PQ(), q2 = new PQ();
-			q1->create(data); vector<int>().swap(data);
-			q2->create(data2); vector<int>().swap(data2);
+                vector<int> data2;
+                data2.insert(data2.end(), data.begin() + n / 2, data.end());
+                data.resize(n / 2);
 
-			START_TIMING(meld_timer);
-			auto meld = PQ::meld(q1, q2);
-			STOP_TIMING(meld_timer);
+                auto q1 = new PQ(), q2 = new PQ();
+                q1->create(data); vector<int>().swap(data);
+                q2->create(data2); vector<int>().swap(data2);
 
-			meld_times[trial].push_back(GET_TIMING(meld_timer));
+                START_TIMING(meld_timer);
+                auto meld = PQ::meld(q1, q2);
+                STOP_TIMING(meld_timer);
 
-			//check data is correct
-			auto sorted = meld->extract_all();
-			Assert::IsTrue(sorted.size() == n, "Data is not complete");
-			for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
-				Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
+                meld_times[trial].push_back(GET_TIMING(meld_timer));
 
-			delete meld;
-			delete q1;
-			delete q2;
+                //check data is correct
+                auto sorted = meld->extract_all();
+                Assert::IsTrue(sorted.size() == n, "Data is not complete");
+                for (vector<int>::iterator it = sorted.begin() + 1; it != sorted.end(); ++it)
+                    Assert::IsTrue(*it < *(it - 1), "Data is not sorted");
 
-			n = n << 1;
-		}
-	}
+                delete meld;
+                delete q1;
+                delete q2;
 
-	int n = 32768;
-	for (size_t i = 0; i <= 10; i++) {
-		report_file << "***MELD (n=" << n << ")***" << endl;
-		double avg_meld_time = 0;
-		for (int j = 0; j < TRIALS; j++)
-			avg_meld_time += meld_times[j][i];
-		avg_meld_time /= TRIALS;
+                n = n << 1;
+            }
+        }
 
-		double sd_meld_time = 0;
-		for (int j = 0; j < TRIALS; j++)
-			sd_meld_time += (meld_times[j][i] - avg_meld_time) * (meld_times[j][i] - avg_meld_time);
-		
-		sd_meld_time = sqrt(sd_meld_time / TRIALS);
+        string latex_meld_plot = "";
+        int n = 32768;
+        for (size_t i = 0; i <= 10; i++) {
+            report_file << "***MELD (n=" << n << ")***" << endl;
+            double avg_meld_time = 0;
+            for (int j = 0; j < TRIALS; j++)
+                avg_meld_time += meld_times[j][i];
+            avg_meld_time /= TRIALS;
 
-		report_file << "\tmelding process:\t\t" << avg_meld_time * 1000 << "(+-" << sd_meld_time * 1000 << ")ms" << endl;
-		
-		n = n << 1;
-	}
-}
+            double sd_meld_time = 0;
+            for (int j = 0; j < TRIALS; j++)
+                sd_meld_time += (meld_times[j][i] - avg_meld_time) * (meld_times[j][i] - avg_meld_time);
+
+            sd_meld_time = sqrt(sd_meld_time / TRIALS);
+
+            report_file << "\tmelding process:\t\t" << avg_meld_time * 1000 << "(+-" << sd_meld_time * 1000 << ")ms" << endl;
+
+            latex_meld_plot += "(" + to_string(i) + ", " + to_string(avg_meld_time * 1000) + ")";
+
+            n = n << 1;
+        }
+
+        report_file << "\n\nlatex points to plot meld times: \n" << latex_meld_plot;
+    }
 }

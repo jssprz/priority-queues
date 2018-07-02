@@ -12,8 +12,8 @@ namespace experiments {
 		typedef FibonacciPQueue<int> FQ;
 		
 		void FibonacciQueueSpecialSortTest() {
-			cout << "FibonacciQueueSpecialSortTest started" << endl;
-			auto report_file = ofstream("tests/FibonacciQueueSpecialSortTest.report", ios::trunc);
+			cout << "\rFibonacciQueueSpecialSortTest started     " << endl;
+			auto report_file = ofstream("tests_results/FibonacciQueueSpecialSortTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			auto fq = new FQ();
 			special_sort_test(report_file, fq);
@@ -21,22 +21,22 @@ namespace experiments {
 		}
 
 		void FibonacciQueueSortInsertingTest() {
-			cout << "FibonacciQueueSortInsertingTest started" << endl;
-			auto report_file = ofstream("tests/FibonacciQueueSortInsertingTest.report", ios::trunc);
+			cout << "\rFibonacciQueueSortInsertingTest started     " << endl;
+			auto report_file = ofstream("tests_results/FibonacciQueueSortInsertingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			sort_inserting_test<FQ>(report_file);
 		}
 
 		void FibonacciQueueInsertAndMeldingTest() {
-			cout << "FibonacciQueueInsertAndMeldingTest started" << endl;
-			auto report_file = ofstream("tests/FibonacciQueueInsertAndMeldingTest.report", ios::trunc);
+			cout << "\rFibonacciQueueInsertAndMeldingTest started     " << endl;
+			auto report_file = ofstream("tests_results/FibonacciQueueInsertAndMeldingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			insert_and_meld_test<FQ>(report_file);
 		}
 
 		void FibonacciQueueMeldTest() {
-			cout << "FibonacciQueueMeldTest started" << endl;
-			auto report_file = ofstream("tests/FibonacciQueueMeldTest.report", ios::trunc);
+			cout << "\rFibonacciQueueMeldTest started     " << endl;
+			auto report_file = ofstream("tests_results/FibonacciQueueMeldTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			meld_test<FQ>(report_file);
 		}

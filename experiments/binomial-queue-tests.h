@@ -12,8 +12,8 @@ namespace experiments {
 		typedef BinomialPQueue<int> BQ;
 		
 		void BinomialQueueSpecialSortTest() {
-			cout << "BinomialQueueSpecialSortTest started" << endl;
-			auto report_file = ofstream("tests/BinomialQueueSpecialSortTest.report", ios::trunc);
+			cout << "\rBinomialQueueSpecialSortTest started     " << endl;
+			auto report_file = ofstream("tests_results/BinomialQueueSpecialSortTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			auto bq = new BQ();
 			special_sort_test(report_file, bq);
@@ -21,22 +21,22 @@ namespace experiments {
 		}
 
 		void BinomialQueueSortInsertingTest() {
-			cout << "BinomialQueueSortInsertingTest started" << endl;
-			auto report_file = ofstream("tests/BinomialQueueSortInsertingTest.report", ios::trunc);
+			cout << "\rBinomialQueueSortInsertingTest started     " << endl;
+			auto report_file = ofstream("tests_results/BinomialQueueSortInsertingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			sort_inserting_test<BQ>(report_file);
 		}
 
 		void BinomialQueueInsertAndMeldingTest() {
-			cout << "BinomialQueueInsertAndMeldingTest started" << endl;
-			auto report_file = ofstream("tests/BinomialQueueInsertAndMeldingTest.report", ios::trunc);
+			cout << "\rBinomialQueueInsertAndMeldingTest started     " << endl;
+			auto report_file = ofstream("tests_results/BinomialQueueInsertAndMeldingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			insert_and_meld_test<BQ>(report_file);
 		}
 
 		void BinomialQueueMeldTest() {
-			cout << "BinomialQueueMeldTest started" << endl;
-			auto report_file = ofstream("tests/BinomialQueueMeldTest.report", ios::trunc);
+			cout << "\rBinomialQueueMeldTest started     " << endl;
+			auto report_file = ofstream("tests_results/BinomialQueueMeldTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			meld_test<BQ>(report_file);
 		}

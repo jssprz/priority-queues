@@ -78,7 +78,7 @@ namespace priority_queue {
 				forest = merge_forests(forest->next, forest->child); //add children to the forest
 
 				//2- Convert the forest of binomial trees in a binomial forest
-				Node *binomial_forest[64] = { NULL }; // only one tree for each degree, it assume 64 > log(n) 
+				Node *binomial_forest[64] = { NULL }; // only one tree for each degree, it assumes 64 > log(n)
 				while (true) {
 					if (binomial_forest[forest->degree]) {
 						// there is a binomial tree with the same degree as the current node (forest)

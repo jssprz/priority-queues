@@ -45,6 +45,7 @@ int main() {
 
 #ifdef USE_BINARY_HEAP_PQ
         //binary-heap tests group
+        cout << "\n\n ****** BINARY HEAP QUEUE TESTS ******" << endl;
         auto bh_tests = BinaryHeapPQueueTest();
         bh_tests.BHeapSpecialSortTest();
         bh_tests.BHeapSortInsertingTest();
@@ -53,6 +54,7 @@ int main() {
 #endif
 #ifdef USE_LEFTIST_HEAP_PQ
         //leftist-heap tests group
+        cout << "\n\n ****** LEFTISTS HEAP QUEUE TESTS ******" << endl;
         auto lh_tests = LeftistHeapTest();
         lh_tests.LeftistHeapSpecialSortTest();
         lh_tests.LeftistHeapSortInsertingTest();
@@ -61,6 +63,7 @@ int main() {
 #endif
 #ifdef USE_SKEW_HEAP_PQ
         //skew-heap tests group
+        cout << "\n\n ****** SKEW HEAP QUEUE TESTS ******" << endl;
         auto sh_tests = SkewHeapTests();
         sh_tests.SkewHeapSpecialSortTest();
         sh_tests.SkewHeapSortInsertingTest();
@@ -69,6 +72,7 @@ int main() {
 #endif
 #ifdef USE_BINOMIAL_PQ
         //binomial-queue tests group
+        cout << "\n\n ****** BINOMIAL QUEUE TESTS ******" << endl;
         auto bq_tests = BinomialQueueTest();
         bq_tests.BinomialQueueSpecialSortTest();
         bq_tests.BinomialQueueSortInsertingTest();
@@ -77,6 +81,7 @@ int main() {
 #endif
 #ifdef USE_FIBONACCI_PQ
         //fibonacci-queue tests group
+        cout << "\n\n ****** FIBONACCI QUEUE TESTS ******" << endl;
         auto fq_tests = FibonacciHeapTest();
         fq_tests.FibonacciQueueSpecialSortTest();
         fq_tests.FibonacciQueueSortInsertingTest();

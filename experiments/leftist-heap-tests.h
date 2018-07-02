@@ -11,8 +11,8 @@ namespace experiments {
 		typedef LeftistHeapPQueue<int> LH;
 	public:
 		void LeftistHeapSpecialSortTest() { 
-			cout << "LeftistHeapSpecialSortTest started" << endl;
-			auto report_file = ofstream("tests/LeftistHeapSpecialSortTest.report", ios::trunc);
+			cout << "\rLeftistHeapSpecialSortTest started     " << endl;
+			auto report_file = ofstream("tests_results/LeftistHeapSpecialSortTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			auto fq = new LH();
 			special_sort_test(report_file, fq);
@@ -20,22 +20,22 @@ namespace experiments {
 		}
 
 		void LeftistHeapSortInsertingTest() { 
-			cout << "LeftistHeapSortInsertingTest started" << endl;
-			auto report_file = ofstream("tests/LeftistHeapSortInsertingTest.report", ios::trunc);
+			cout << "\rLeftistHeapSortInsertingTest started     " << endl;
+			auto report_file = ofstream("tests_results/LeftistHeapSortInsertingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			sort_inserting_test<LH>(report_file);
 		}
 
 		void LeftistHeapInsertAndMeldingTest() { 
-			cout << "LeftistHeapInsertAndMeldingTest started" << endl;
-			auto report_file = ofstream("tests/LeftistHeapInsertAndMeldingTest.report", ios::trunc);
+			cout << "\rLeftistHeapInsertAndMeldingTest started     " << endl;
+			auto report_file = ofstream("tests_results/LeftistHeapInsertAndMeldingTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			insert_and_meld_test<LH>(report_file);
 		}
 
 		void LeftistHeapMeldTest() { 
-			cout << "LeftistHeapMeldTest started" << endl;
-			auto report_file = ofstream("tests/LeftistHeapMeldTest.report", ios::trunc);
+			cout << "\rLeftistHeapMeldTest started     " << endl;
+			auto report_file = ofstream("tests_results/LeftistHeapMeldTest.report", ios::trunc);
 			report_file << fixed << setprecision(5);
 			meld_test<LH>(report_file);
 		}
