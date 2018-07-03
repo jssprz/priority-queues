@@ -11,7 +11,7 @@ namespace priority_queue {
 	public:
 		
 		virtual void create(const vector<T> &data) = 0;
-		
+
 		virtual void insert(const T &value) = 0;
 		
 		virtual T extract_next() = 0;

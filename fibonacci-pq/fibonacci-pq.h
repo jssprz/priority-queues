@@ -61,10 +61,9 @@ namespace priority_queue {
 		}
 
 		virtual T extract_next() {
-			auto current_max = forest;
-			auto result = current_max->key;
+			auto old_max = forest;
+			auto result = old_max->key;
 
-			//1- Delete root of the tree that contains the max
 			if (forest->next == forest) { //if forest has only one node
 				forest = forest->child;
 				if (!forest) {
@@ -73,11 +72,14 @@ namespace priority_queue {
 				}
 			}
 			else {
+                //1- Remove root of the tree that contains the max
 				forest->next->prev = forest->prev;
 				forest->prev->next = forest->next;
-				forest = merge_forests(forest->next, forest->child); //add children to the forest
 
-				//2- Convert the forest of binomial trees in a binomial forest
+				//2- Add children to the forest
+                forest = merge_forests(forest->next, forest->child);
+
+				//3- Convert the forest of binomial trees in a binomial forest
 				Node *binomial_forest[64] = { NULL }; // only one tree for each degree, it assumes 64 > log(n)
 				while (true) {
 					if (binomial_forest[forest->degree]) {
@@ -86,51 +88,67 @@ namespace priority_queue {
 						if (bin_tree == forest)
 							break;
 
-						// remove bin_tree of the current binomial forest because it must be merged
+						//3.1- remove bin_tree of the current binomial forest because it must be merged
 						binomial_forest[forest->degree] = NULL;
 						bin_tree->prev->next = bin_tree->next;
 						bin_tree->next->prev = bin_tree->prev;
 
-						// merge the current node (forest) and bin_tree
+						//3.2- merge the current node (forest) and bin_tree
 						if (forest->key > bin_tree->key) {
 							// add bin_tree as child of the current node (forest)
-							bin_tree->prev = bin_tree->next = bin_tree;
 							forest->degree++;
-							forest->child = merge_forests(forest->child, bin_tree);
-						}
-						else {
-							if (forest->next == forest)
-								bin_tree->next = bin_tree->prev = bin_tree;
-							else {
-								forest->prev->next = bin_tree;
-								forest->next->prev = bin_tree;
-								bin_tree->next = forest->next;
-								bin_tree->prev = forest->prev;
+							if(!forest->child) {
+                                forest->child = bin_tree;
+                                bin_tree->next = bin_tree->prev = bin_tree;
+                            }
+							else{
+							    auto child_next = forest->child->next;
+							    forest->child->next = bin_tree;
+							    bin_tree->prev = forest->child;
+							    bin_tree->next = child_next;
+							    child_next->prev = bin_tree;
 							}
+						}
+                        else {
+						    // change the current node (forest) for bin_tree in the root list
+                            forest->prev->next = bin_tree;
+                            forest->next->prev = bin_tree;
+                            bin_tree->next = forest->next;
+                            bin_tree->prev = forest->prev;
+
 							// add the current node (forest) as child of bin_tree
-							forest->prev = forest->next = forest;
 							bin_tree->degree++;
-							bin_tree->child = merge_forests(bin_tree->child, forest);
+                            if(!bin_tree->child) {
+                                bin_tree->child = forest;
+                                forest->next = forest->prev = forest;
+                            }
+                            else{
+                                auto child_next = bin_tree->child->next;
+                                bin_tree->child->next = forest;
+                                forest->prev = bin_tree->child;
+                                forest->next = child_next;
+                                child_next->prev = forest;
+                            }
 							forest = bin_tree;
 						}
 					}
 					else {
+					    // the current node (forest) is the only node with its degree in this moment
 						binomial_forest[forest->degree] = forest;
 						forest = forest->next;
 					}
 				}
-			}
+            }
 
-			//3- Calculate the new max, and update forest pointer
-			auto current = forest, first = forest;
-			current = current->next;
-			while (current != first) {
-				if (current->key > forest->key)
-					forest = current;
-				current = current->next;
-			}
+            //4- Calculate the new max, and update forest pointer
+            auto current = forest->next, first = forest;
+            while (current != first) {
+                if (current->key > forest->key)
+                    forest = current;
+                current = current->next;
+            }
 
-			delete current_max;
+			delete old_max;
 			this->n--;
 			return result;
 		}
@@ -154,24 +172,15 @@ namespace priority_queue {
 		static Node* merge_forests(Node *n1, Node *n2) {
 			if (!n1)return n2;
 			if (!n2)return n1;
-			if (n1->key < n2->key) {
-				auto n2_next = n2->next;
-				auto n1_prev = n1->prev;
-				n2->next = n1;
-				n1->prev = n2;
-				n2_next->prev = n1_prev;
-				n1_prev->next = n2_next;
-				return n2;
-			}
-			else {
-				auto n1_next = n1->next;
-				auto n2_prev = n2->prev;
-				n1->next = n2;
-				n2->prev = n1;
-				n1_next->prev = n2_prev;
-				n2_prev->next = n1_next;
-				return n1;
-			}
+
+            auto n1_next = n1->next;
+            auto n2_prev = n2->prev;
+            n1->next = n2;
+            n2->prev = n1;
+            n1_next->prev = n2_prev;
+            n2_prev->next = n1_next;
+
+            return (n1->key < n2->key) ? n2 : n1;
 		}
 
 		// circular double linked list bigining by the tree with the max element

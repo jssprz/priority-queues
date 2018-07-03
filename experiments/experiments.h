@@ -128,25 +128,25 @@ namespace experiments {
 				cout << "\r\t\tN: " << n;
 
 				auto queue = new PQ();
-				for (int j = 0; j < n; j++) {
-					START_TIMING(insertion_timer);
+				int j = 0;
+                START_TIMING(insertion_timer);
+				for (j = 0; j < n; j++)
 					queue->insert(data[j]);
-					STOP_TIMING(insertion_timer);
-				}
+                STOP_TIMING(insertion_timer);
 
-				insert_all_times[trial].push_back(GET_TOTAL_TIME(insertion_timer));
-				insert_each_times[trial].push_back(GET_AVERAGE_TIMING(insertion_timer));
+                auto insert_time = GET_TIMING(insertion_timer);
+                insert_all_times[trial].push_back(insert_time);
+				insert_each_times[trial].push_back(insert_time / n);
 
-				vector<int> sorted;
-				sorted.reserve(n);
-				for (int i = 0; i < n; i++) {
-					START_TIMING(extraction_timer);
-					sorted.push_back(queue->extract_next());
-					STOP_TIMING(extraction_timer);
-				}
+				vector<int> sorted(n);
+                START_TIMING(extraction_timer);
+                for (j = 0; j < n; j++)
+					sorted[j] = queue->extract_next();
+                STOP_TIMING(extraction_timer);
 
-				extract_all_times[trial].push_back(GET_TOTAL_TIME(extraction_timer));
-				extract_each_times[trial].push_back(GET_AVERAGE_TIMING(extraction_timer));
+                auto extract_time = GET_TIMING(extraction_timer);
+				extract_all_times[trial].push_back(extract_time);
+				extract_each_times[trial].push_back(extract_time / n);
 
 				//check data is sorted
 				Assert::IsTrue(queue->count() == 0, "The queue is not empty");
@@ -156,10 +156,7 @@ namespace experiments {
 
 				delete queue;
 
-				subtotal_times[trial].push_back(GET_TOTAL_TIME(insertion_timer) + GET_TOTAL_TIME(extraction_timer));
-
-				CLEAR_TIMING(insertion_timer);
-				CLEAR_TIMING(extraction_timer);
+				subtotal_times[trial].push_back(insert_time + extract_time);
 
 				n = n << 1;
 			}
@@ -251,7 +248,8 @@ namespace experiments {
 			STOP_TIMING(meld_timer);
 
 			queues.push_back(meld);
-			delete c1, c2;
+			delete c1;
+			delete c2;
 		}
 
 		report_file << "\ttotal time for meld:\t" << GET_TOTAL_TIME(meld_timer) * 1000 << "ms" << endl;
