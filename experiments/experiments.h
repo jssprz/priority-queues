@@ -38,7 +38,7 @@ namespace experiments {
 
 			int n = 32768;
 			for (int i = 15; i <= 25; i++) {
-				cout << "\r\t\tN: " << n;
+				cout << "\r\t\tN: " << n << flush;
 
 				auto data_subset = vector<int>(data.begin(), data.begin() + n);
 				START_TIMING(creation_timer);
@@ -125,7 +125,7 @@ namespace experiments {
 
 			int n = 32768;
 			for (int i = 15; i <= 25; i++) {
-				cout << "\r\t\tN: " << n;
+				cout << "\r\t\tN: " << n << flush;
 
 				auto queue = new PQ();
 				int j = 0;
@@ -284,7 +284,7 @@ namespace experiments {
 
 			int k = 1;
 			for (int i = 0; i <= 15; i++) {
-				cout << "\r\t\tK: " << k;
+				cout << "\r\t\tK: " << k << flush;
 				deque<PQ*> queues;
 
 				//insertion
@@ -396,7 +396,7 @@ namespace experiments {
 
             int n = 32768;
             for (size_t i = 15; i <= 25; i++) {
-                cout << "\r\t\tN: " << n;
+                cout << "\r\t\tN: " << n << flush;
                 vector<int> data(n);
                 std::iota(std::begin(data), std::end(data), 0);
                 random_shuffle(data.begin(), data.end());
