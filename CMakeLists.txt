@@ -8,6 +8,8 @@ set (priority_queues_VERSION_MINOR 0)
 # variables used for in experiments,
 # they define the number of trials to run in each experiment
 set(TRIALS "8" CACHE STRING "")
+set(SORT_MIN_POW_2 "15" CACHE STRING "")
+set(SORT_MAX_POW_2 "21" CACHE STRING "")
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -67,6 +69,8 @@ message("USE_BINOMIAL_PQ        " ${USE_BINOMIAL_PQ})
 message("USE_FIBONACCI_PQ       " ${USE_FIBONACCI_PQ})
 message("USE_EXPERIMENTS        " ${USE_EXPERIMENTS})
 message("TRIALS                 " ${TRIALS})
+message("SORT_MIN_POW_2         " ${SORT_MIN_POW_2})
+message("SORT_MAX_POW_2         " ${SORT_MAX_POW_2})
 
 # configure a header file to pass some of the CMake settings
 # to the source code

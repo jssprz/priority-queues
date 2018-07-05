@@ -23,7 +23,7 @@ namespace experiments {
 		DECLARE_TIMING(creation_timer);
 		DECLARE_TIMING(extract_all_timer);
 
-		vector<int> data(33554432/*2097152*/);
+		vector<int> data(pow(2, SORT_MAX_POW_2));
 		std::iota(std::begin(data), std::end(data), 0);
 
 		srand(TRIALS); //to generate the same trials in all experiments
@@ -36,8 +36,8 @@ namespace experiments {
 			cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 			random_shuffle(data.begin(), data.end());
 
-			int n = 32768;
-			for (int i = 15; i <= 25; i++) {
+			int n = pow(2, SORT_MIN_POW_2);
+			for (int i = SORT_MIN_POW_2; i <= SORT_MAX_POW_2; i++) {
 				cout << "\r\t\tN: " << n << flush;
 
 				auto data_subset = vector<int>(data.begin(), data.begin() + n);
@@ -64,8 +64,8 @@ namespace experiments {
 		}
 
 		string latex_creation_plot = "", latex_extract_all_plot = "", latex_total_plot = "";
-		int n = 32768;
-		for (int i = 15; i <= 25; i++) {
+		int n = pow(2, SORT_MIN_POW_2);
+		for (int i = SORT_MIN_POW_2; i <= SORT_MAX_POW_2; i++) {
 			report_file << "***SPECIAL SORT (n=" << n << ")***" << endl;
 			double avg_create_time = 0, avg_extract_all_time = 0, avg_subtotal_time = 0;
 			for (int j = 0; j < TRIALS; j++) {
@@ -108,7 +108,7 @@ namespace experiments {
 		DECLARE_TIMING(insertion_timer);
 		DECLARE_TIMING(extraction_timer);
 
-		vector<int> data(33554432/*2097152*/);
+		vector<int> data(pow(2, SORT_MAX_POW_2));
 		std::iota(std::begin(data), std::end(data), 0);
 
 		srand(TRIALS); //to generate the same trials in all experiments
@@ -123,8 +123,8 @@ namespace experiments {
 			cout << "\r\tExecuting trial: " << (trial+1) << " of " << TRIALS << endl;
 			random_shuffle(data.begin(), data.end());
 
-			int n = 32768;
-			for (int i = 15; i <= 25; i++) {
+			int n = pow(2, SORT_MIN_POW_2);
+			for (int i = SORT_MIN_POW_2; i <= SORT_MAX_POW_2; i++) {
 				cout << "\r\t\tN: " << n << flush;
 
 				auto queue = new PQ();
@@ -163,16 +163,16 @@ namespace experiments {
 		}
 
         string latex_insert_all_plot = "", latex_insert_each_plot = "", latex_extract_all_plot = "", latex_extract_each_plot = "", latex_total_plot = "";
-        int n = 32768;
-		for (int i = 15; i <= 25; i++) {
+        int n = pow(2, SORT_MIN_POW_2);
+		for (int i = SORT_MIN_POW_2; i <= SORT_MAX_POW_2; i++) {
 			report_file << "***SORT INSERTING (n=" << n << ")***" << endl;
 			double avg_insert_all_time = 0, avg_insert_each_time = 0, avg_extract_all_time = 0, avg_extract_each_time = 0, avg_subtotal_time = 0;
 			for (int j = 0; j < TRIALS; j++) {
-				avg_insert_all_time += insert_all_times[j][i-15];
-				avg_insert_each_time += insert_each_times[j][i-15];
-				avg_extract_all_time += extract_all_times[j][i-15];
-				avg_extract_each_time += extract_each_times[j][i-15];
-				avg_subtotal_time += subtotal_times[j][i-15];
+				avg_insert_all_time += insert_all_times[j][i-SORT_MIN_POW_2];
+				avg_insert_each_time += insert_each_times[j][i-SORT_MIN_POW_2];
+				avg_extract_all_time += extract_all_times[j][i-SORT_MIN_POW_2];
+				avg_extract_each_time += extract_each_times[j][i-SORT_MIN_POW_2];
+				avg_subtotal_time += subtotal_times[j][i-SORT_MIN_POW_2];
 			}
 			avg_insert_all_time /= TRIALS;
 			avg_insert_each_time /= TRIALS;
@@ -182,11 +182,11 @@ namespace experiments {
 
 			double sd_insert_all_time = 0, sd_insert_each_time = 0, sd_extract_all_time = 0, sd_extract_each_time = 0, sd_subtotal_time = 0;
 			for (int j = 0; j < TRIALS; j++) {
-				sd_insert_all_time += (insert_all_times[j][i - 15] - avg_insert_all_time) * (insert_all_times[j][i - 15] - avg_insert_all_time);
-				sd_insert_each_time += (insert_each_times[j][i - 15] - avg_insert_each_time) * (insert_each_times[j][i - 15] - avg_insert_each_time);
-				sd_extract_all_time += (extract_all_times[j][i - 15] - avg_extract_all_time) * (extract_all_times[j][i - 15] - avg_extract_all_time);
-				sd_extract_each_time += (extract_each_times[j][i - 15] - avg_extract_each_time) * (extract_each_times[j][i - 15] - avg_extract_each_time);
-				sd_subtotal_time += (subtotal_times[j][i - 15] - avg_subtotal_time) * (subtotal_times[j][i - 15] - avg_subtotal_time);
+				sd_insert_all_time += (insert_all_times[j][i - SORT_MIN_POW_2] - avg_insert_all_time) * (insert_all_times[j][i - SORT_MIN_POW_2] - avg_insert_all_time);
+				sd_insert_each_time += (insert_each_times[j][i - SORT_MIN_POW_2] - avg_insert_each_time) * (insert_each_times[j][i - SORT_MIN_POW_2] - avg_insert_each_time);
+				sd_extract_all_time += (extract_all_times[j][i - SORT_MIN_POW_2] - avg_extract_all_time) * (extract_all_times[j][i - SORT_MIN_POW_2] - avg_extract_all_time);
+				sd_extract_each_time += (extract_each_times[j][i - SORT_MIN_POW_2] - avg_extract_each_time) * (extract_each_times[j][i - SORT_MIN_POW_2] - avg_extract_each_time);
+				sd_subtotal_time += (subtotal_times[j][i - SORT_MIN_POW_2] - avg_subtotal_time) * (subtotal_times[j][i - SORT_MIN_POW_2] - avg_subtotal_time);
 			}
 			sd_insert_all_time = sqrt(sd_insert_all_time / TRIALS);
 			sd_insert_each_time = sqrt(sd_insert_each_time / TRIALS);

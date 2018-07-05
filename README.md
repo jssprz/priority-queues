@@ -34,6 +34,8 @@ USE_BINOMIAL_PQ        ON
 USE_FIBONACCI_PQ       ON
 USE_EXPERIMENTS        ON
 TRIALS                 8
+SORT_MIN_POW_2         15
+SORT_MAX_POW_2         21
 ```
 The value of the options can be changed using using
 ```
