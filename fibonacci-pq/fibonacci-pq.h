@@ -99,7 +99,7 @@ namespace priority_queue {
         // According to Intro. to Alg 3rd ed.
         void consolidate() {
             auto current = forest, first = forest;
-            int i, d, D = log2(n) + 1;
+            int i, d, D = log2(this->n) + 1;
             auto A = new Node*[D];
             for (i = 0; i < D; ++i)
                 A[i] = NULL;
@@ -149,7 +149,7 @@ namespace priority_queue {
 
         // Generating the list of roots and merges at the same time
         void consolidate2(){
-            int i, D = log2(n) + 1;
+            int i, D = log2(this->n) + 1;
             auto binomial_forest = new Node*[D];
             for (i = 0; i < D; ++i)
                 binomial_forest[i] = NULL; // only one tree for each degree, it assumes 64 > log(n)
