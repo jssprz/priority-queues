@@ -7,12 +7,6 @@ namespace priority_queue {
 
 		SkewHeapNode(T key) :key(key) {	left = right = NULL; }
 
-		void swap_children() {
-			auto aux = left;
-			left = right;
-			right = aux;
-		}
-
 		T key;
 		Node *left, *right;
 	};

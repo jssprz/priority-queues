@@ -23,8 +23,9 @@ namespace priority_queue {
 		    if (!root)
 		        root = new Node(value);
 		    else if (value < root->key) {
-                root->swap_children();
-                root->left = merge_trees(new Node(value), root->left);
+                auto aux = root->left;
+                root->left = root->right;
+                root->right = merge_trees(new Node(value), aux);
             }
             else {
 		        auto new_node = new Node(value);
@@ -74,13 +75,17 @@ namespace priority_queue {
 			if (!n1)return n2;
 			if (!n2)return n1;
 			if (n1->key < n2->key) {
-				n2->swap_children();
-				n2->left = merge_trees(n1, n2->left);
+				//swap children and put merge as the right child
+                auto aux = n2->left;
+                n2->left = n2->right;
+				n2->right = merge_trees(n1, aux);
 				return n2;
 			}
 			else {
-				n1->swap_children();
-				n1->left = merge_trees(n2, n1->left);
+				//swap children and put merge as the right child
+                auto aux = n1->left;
+                n1->left = n1->right;
+				n1->right = merge_trees(n2, aux);
 				return n1;
 			}
 		}
