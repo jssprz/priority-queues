@@ -325,6 +325,7 @@ namespace experiments {
 				//check data is correct
 				for (vector<int>::reverse_iterator it = std_heap.rbegin(); it != std_heap.rend(); ++it)
 					Assert::IsTrue(*it == pq->extract_next(), "The heap constructed for k=" + to_string(k) + " is not sorted");
+
 				delete pq;
 
 				CLEAR_TIMING(creation_timer);

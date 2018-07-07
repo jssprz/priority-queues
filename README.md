@@ -15,12 +15,15 @@ git clone https://gitlab.com/jssprz/priority-queues-cmake.git
 
 ## Installing and Run
 Create a build directory inside the project directory and configure the build using CMake to generate
-the Makefiles for GNU Make or the corresponding generator in Windows:
+the Makefiles for [GNU Make](https://www.gnu.org/software/make/) or the corresponding generator in Windows:
 ```
 mkdir build
 cd build
 cmake ..
 ```
+
+Or using the cmake from CLion IDE, see [Configuring CMake](https://www.jetbrains.com/help/clion/configuring-cmake.html)
+for more info.
 
 ### CMake options
 With the following options we can change the Priority Queues to include in the built. Also, is possible to change
@@ -37,7 +40,7 @@ TRIALS                 8
 SORT_MIN_POW_2         15
 SORT_MAX_POW_2         21
 ```
-The value of the options can be changed using using
+The value of the options can be changed using
 ```
 cmake-gui
 ````
@@ -47,8 +50,12 @@ ccmake
 ```
 
 #### Windows
-The `cmake-gui` allows specify te generator for the project, which it should be possible to build the project with
-`C++14` (i.e. Visual Studio 15 2017 Win64). Then build the executable in Release configuration and 64bits platform.
+The `cmake-gui` allows specify the generator for the project, which it should be possible to build the project with
+`C++14` in compilers that have notion of that standard level, such as Microsoft Visual C++ after 2015 Update 3
+(i.e. Visual Studio 15 2017 Win64) see
+[Support For C++11/14/17 Features (Modern C++)](https://msdn.microsoft.com/en-us/library/hh567368.aspx) or
+and [CXX_STANDARD](https://cmake.org/cmake/help/v3.12/prop_tgt/CXX_STANDARD.html) for more info.
+Then configure the options and build the executable in Release configuration.
 
 #### GNU Make
 Build the executable named "priority_queues" using GNU Make
@@ -62,5 +69,6 @@ The executable can be run with:
 ```
 
 ### Test Results
-The program creates a `tests_results` folder in the same location of the executable and inside it generate a `.report`
-file with a breakdown of the execution times ([mean](https://en.wikipedia.org/wiki/Mean) and [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)) for each test.
+The program creates a `tests_results` folder in the same location of the executable. Then the program saves inside this
+folder a `.report` file with the details of the execution times ([mean](https://en.wikipedia.org/wiki/Mean) and
+[standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)) for each test.
