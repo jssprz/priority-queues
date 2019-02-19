@@ -6,7 +6,7 @@ of 20 functional tests and experiments that validate their correct functioning a
 ## Download
 Use the [git clone](https://git-scm.com/docs/git-clone) command to download this project:
 ```
-git clone https://gitlab.com/jssprz/priority-queues-cmake.git
+git clone https://github.com/jssprz/priority-queues.git
 ```
 
 ## Requirements
